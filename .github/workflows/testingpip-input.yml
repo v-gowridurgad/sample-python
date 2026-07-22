@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     
     steps:
       - name: Checkout code
@@ -13,9 +13,8 @@ jobs:
         with:
            python-version: "3.x"
            pip-install: -r requirements.txt
-      - name: Debug Python / PEP 668
+      - name: Check system Python
         run: |
-           which python
-           python --version
-           python -m pip --version
-           python -c "import sys, sysconfig; from pathlib import Path; p = Path(sysconfig.get_path('stdlib')) / 'EXTERNALLY-MANAGED'; print(f'sys.executable={sys.executable}'); print(f'stdlib={sysconfig.get_path(\"stdlib\")}'); print(f'marker_path={p}'); print(f'marker_exists={p.exists()}')"
+            /usr/bin/python3 --version
+            /usr/bin/python3 -m pip --version || true
+            /usr/bin/python3 -c "import sys, sysconfig; from pathlib import Path; p = Path(sysconfig.get_path('stdlib')) / 'EXTERNALLY-MANAGED'; print(f'sys.executable={sys.executable}'); print(f'stdlib={sysconfig.get_path(\"stdlib\")}'); print(f'marker_path={p}'); print(f'marker_exists={p.exists()}')"
