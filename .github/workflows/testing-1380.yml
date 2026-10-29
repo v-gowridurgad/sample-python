@@ -1,0 +1,19 @@
+name: testing-1380
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+
+      - name: Set up python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+         
+    
